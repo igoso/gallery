@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.igoso.me.gallery.dao.FileUploadDao">
+
+    <resultMap type="com.igoso.me.gallery.entity.FileUpload" id="BaseResultMap">
+        <id property="id" column="id"/>
+        <result property="fileName" column="filename"/>
+        <result property="fileData" column="filedata"/>
+        <result property="mimeType" column="mime_type"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createBy" column="create_by"/>
+    </resultMap>
+
+    <select id="findByFileName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT *
+        FROM ga_files
+        WHERE filename = #{filename}
+        AND status = 0
+    </select>
+
+    <insert id="saveAndFlush" parameterType="com.igoso.me.gallery.entity.FileUpload">
+        INSERT INTO
+        ga_files
+        (filename,filedata,mime_type,create_time)
+        VALUES
+        (#{fileName},#{fileData},#{mimeType},#{createTime})
+    </insert>
+</mapper>
