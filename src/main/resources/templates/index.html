@@ -60,7 +60,8 @@
                 <div class="dz-default dz-message">
                     拖拽文件到这里上传
                 </div>
-                <form>
+            </form>
+            <button class="btn btn-info" id="do-download">测试下载</button>
         </div>
     </div>
 
@@ -83,5 +84,25 @@
 
 <!--custom js includes-->
 <script src="/js/dropzone.js"></script>
+
+<script type="application/javascript">
+    $("#do-download").click(function () {
+        $.ajax({
+            url: '/download',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                filename: 'xxx'
+            },
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    });
+
+</script>
 </body>
 </html>
