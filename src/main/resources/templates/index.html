@@ -56,11 +56,9 @@
     <div class="main">
         <div class="gallery-zone text-center">
             <!--dropzone-->
-            <form action="" class="dropzone" dropzone="" id="dropzone">
-                <div class="dz-default dz-message">
-                    拖拽文件到这里上传
-                </div>
-            </form>
+            <div id="dropzone">
+                拖拽文件到这里上传
+            </div>
             <button class="btn btn-info" id="do-download">测试下载</button>
         </div>
     </div>
@@ -101,6 +99,12 @@
                 console.log(data);
             }
         });
+    });
+
+    $("#dropzone").dropzone({
+        url: "/upload",
+        maxFiles: 10,
+        maxFilesize: 5120
     });
 
 </script>
