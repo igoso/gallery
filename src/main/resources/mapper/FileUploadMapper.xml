@@ -16,7 +16,7 @@
     <select id="findByFileName" parameterType="java.lang.String" resultMap="BaseResultMap">
         SELECT *
         FROM ga_files
-        WHERE filename = #{filename}
+        WHERE filename = #{fileName}
         AND status = 0
     </select>
 
