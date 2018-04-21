@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `ga_files`;
 CREATE TABLE `ga_files` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `filename` varchar(255) DEFAULT NULL COMMENT '文件名称',
-  `filedata` blob COMMENT '文件数据',
+  `filedata` longblob COMMENT '文件数据',
   `mime_type` varchar(128) DEFAULT NULL COMMENT 'mime类型',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `create_by` varchar(255) DEFAULT NULL COMMENT '创建人',

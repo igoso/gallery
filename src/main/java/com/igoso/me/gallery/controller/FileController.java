@@ -38,8 +38,8 @@ public class FileController {
         headers.add("content-disposition", "attachment; filename=" + fileUpload.getFileName());
         String primaryType, subType;
         try {
-            primaryType = fileUpload.getMineType().split("/")[0];
-            subType = fileUpload.getMineType().split("/")[1];
+            primaryType = fileUpload.getMimeType().split("/")[0];
+            subType = fileUpload.getMimeType().split("/")[1];
         } catch (IndexOutOfBoundsException | NullPointerException e) {
             return new ResponseEntity<>("{}", HttpStatus.INTERNAL_SERVER_ERROR);
         }
