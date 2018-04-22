@@ -1,21 +1,33 @@
 package com.igoso.me.gallery.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.aliyun.oss.OSSClient;
+import com.aliyun.oss.common.utils.BinaryUtil;
+import com.aliyun.oss.model.MatchMode;
+import com.aliyun.oss.model.PolicyConditions;
 import com.igoso.me.gallery.entity.FileUpload;
 import com.igoso.me.gallery.service.FileUploadService;
+import com.igoso.me.gallery.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Created by igoso on 18-4-19.
@@ -23,6 +35,7 @@ import java.util.Iterator;
 @Controller
 public class FileController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileController.class);
     @Resource
     private FileUploadService fileUploadService;
 
@@ -71,4 +84,73 @@ public class FileController {
 
         return new ResponseEntity<>("{}", HttpStatus.OK);
     }
+
+    //aliyun oss demo
+    @Value("${aliyun.oss.endpoint}")
+    private String endpoint;
+
+    @Value("${aliyun.oss.accessId}")
+    private String accessId;
+
+    @Value("${aliyun.oss.accessKey}")
+    private String accessKey;
+
+    @Value("${aliyun.oss.bucket}")
+    private String bucket;
+
+    @Value("${aliyun.oss.dir.root}")
+    private String rootDir;
+
+
+    @RequestMapping(value = "/send_request",method = RequestMethod.GET)
+    public void sendRequest(HttpServletRequest request, HttpServletResponse response){
+        String host = "http://" + bucket + "." + endpoint;
+        OSSClient client = new OSSClient(endpoint, accessId, accessKey);
+        try {
+            long expireTime = 30;
+            long expireEndTime = System.currentTimeMillis() + expireTime * 1000;
+            String dir = rootDir + "/" + TimeUtil.currentMonth() + "/";
+            java.sql.Date expiration = new java.sql.Date(expireEndTime);
+            PolicyConditions policyConds = new PolicyConditions();
+            policyConds.addConditionItem(PolicyConditions.COND_CONTENT_LENGTH_RANGE, 0, 1048576000);
+            policyConds.addConditionItem(MatchMode.StartWith, PolicyConditions.COND_KEY, dir);
+
+            String postPolicy = client.generatePostPolicy(expiration, policyConds);
+            byte[] binaryData = postPolicy.getBytes("utf-8");
+            String encodedPolicy = BinaryUtil.toBase64String(binaryData);
+            String postSignature = client.calculatePostSignature(postPolicy);
+
+            Map<String, String> respMap = new LinkedHashMap<String, String>();
+            respMap.put("accessid", accessId);
+            respMap.put("policy", encodedPolicy);
+            respMap.put("signature", postSignature);
+            //respMap.put("expire", formatISO8601Date(expiration));
+            respMap.put("dir", dir);
+            respMap.put("host", host);
+            respMap.put("expire", String.valueOf(expireEndTime / 1000));
+            LOGGER.debug("send request:{}", JSON.toJSONString(respMap));
+            response.setHeader("Access-Control-Allow-Origin", "*");
+            response.setHeader("Access-Control-Allow-Methods", "GET, POST");
+            response(request, response, JSON.toJSONString(respMap));
+
+        } catch (Exception e) {
+            LOGGER.error("error occurred:{}",e.getMessage());
+        }
+    }
+
+    private void response(HttpServletRequest request, HttpServletResponse response, String results) throws IOException {
+        String callbackFunName = request.getParameter("callback");
+        if (callbackFunName==null || callbackFunName.equalsIgnoreCase(""))
+            response.getWriter().println(results);
+        else
+            response.getWriter().println(callbackFunName + "( "+results+" )");
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.flushBuffer();
+    }
+
+    @RequestMapping("/oss/callback")
+    public void callback() {
+
+    }
+
 }

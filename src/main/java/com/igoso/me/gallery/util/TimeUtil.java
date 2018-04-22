@@ -22,4 +22,14 @@ public class TimeUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
         return sdf.format(new Date());
     }
+
+    /**
+     * get current month
+     * eg: 201804
+     * @return
+     */
+    public static String currentMonth() {
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYYMM");
+        return sdf.format(new Date());
+    }
 }
