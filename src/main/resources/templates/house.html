@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>TianShui House</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- bootstrap-table css -->
+    <link href="https://cdn.bootcss.com/bootstrap-table/1.12.1/bootstrap-table.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="starter-template.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">天水房产</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#">首页</a></li>
+                <li><a href="#about">关于</a></li>
+                <li><a href="#contact">联系</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">注册</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div class="container">
+
+    <table id="houselist">
+        <!--house list-->
+    </table>
+</div><!-- /.container -->
+
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">Copyright by igosh.com @2015-2020</p>
+    </div>
+</footer>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<script src="/js/common.js"></script>
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-table/1.12.1/bootstrap-table.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-table/1.12.1/locale/bootstrap-table-zh-CN.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>
+
+<script>
+    $("#houselist").bootstrapTable({
+        url:"/house/list",
+        columns:[
+            {field:"state",checkbox:true},
+            {field:"id",title:"id"},
+            {field:"brands",title:"品牌"},
+            {field:"price",title:"价格",formatter:function (v,r,i) {
+                return v + " 元/m<sup>2</sup>";
+            }},
+            {field:"size",title:"大小和户型"},
+            {field:"type",title:"类型"},
+            {field:"usage",title:"特色"},
+            {field:"region",title:"区域"},
+            {field:"address",title:"地址"},
+            {field:"pic",title:"图片",formatter:function (v,r,i) {
+                return '<a href="' + v + '" target="_blank">' + r.brands + '</a>';
+            }},
+
+            {field:"createTime",title:"时间",formatter:function (v,r,i) {
+                return dateFormat(new Date(v));
+            }}
+        ],
+        striped: true, //是否显示行间隔色
+        cache: false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+        pagination: true,           //是否显示分页
+        sidePagination: "client", //分页方式：client客户端分页，server服务端分页（*）
+        clickToSelect: true,        //是否启用点击选中行
+        showRefresh: true,          //是否显示刷新按钮
+        search: true,               //是否显示表格搜索
+        pageList: [10, 20, 50],     //可供选择的每页的行数
+        pageSize: 10,              //每页的记录行数
+        formatNoMatches: function () {
+            return '无符合条件的记录';
+        }
+    });
+</script>
