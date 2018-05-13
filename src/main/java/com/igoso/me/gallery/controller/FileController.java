@@ -110,7 +110,7 @@ public class FileController {
             long expireTime = 30;
             long expireEndTime = System.currentTimeMillis() + expireTime * 1000;
             String dir = rootDir + "/" + TimeUtil.currentMonth() + "/";
-            java.sql.Date expiration = new java.sql.Date(expireEndTime);
+            Date expiration = new Date(expireEndTime);
             PolicyConditions policyConds = new PolicyConditions();
             policyConds.addConditionItem(PolicyConditions.COND_CONTENT_LENGTH_RANGE, 0, 1048576000);
             policyConds.addConditionItem(MatchMode.StartWith, PolicyConditions.COND_KEY, dir);
