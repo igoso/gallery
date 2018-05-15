@@ -83,6 +83,9 @@
             {field:"id",title:"id"},
             {field:"brands",title:"品牌"},
             {field:"price",title:"价格",formatter:function (v,r,i) {
+                if(v == '-1'){
+                    return '未报价';
+                }
                 return v + " 元/m<sup>2</sup>";
             }},
             {field:"size",title:"大小和户型"},
