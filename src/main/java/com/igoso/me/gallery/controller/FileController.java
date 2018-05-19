@@ -24,10 +24,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by igoso on 18-4-19.
@@ -119,6 +116,7 @@ public class FileController {
             byte[] binaryData = postPolicy.getBytes("utf-8");
             String encodedPolicy = BinaryUtil.toBase64String(binaryData);
             String postSignature = client.calculatePostSignature(postPolicy);
+            String callback = generateCallbackParams();
 
             Map<String, String> respMap = new LinkedHashMap<String, String>();
             respMap.put("accessid", accessId);
@@ -128,6 +126,7 @@ public class FileController {
             respMap.put("dir", dir);
             respMap.put("host", host);
             respMap.put("expire", String.valueOf(expireEndTime / 1000));
+            respMap.put("callback", callback);
             LOGGER.debug("send request:{}", JSON.toJSONString(respMap));
             response.setHeader("Access-Control-Allow-Origin", "*");
             response.setHeader("Access-Control-Allow-Methods", "GET, POST");
@@ -148,9 +147,30 @@ public class FileController {
         response.flushBuffer();
     }
 
-    @RequestMapping("/oss/callback")
-    public void callback() {
 
+    private String generateCallbackParams() {
+        String body = "{\n" +
+                "    \"filename\": ${object},\n" +
+                "    \"mimeType\": ${mimeType},\n" +
+                "    \"size\": \"${size}\",\n" +
+                "    \"height\": \"${imageInfo.height}\",\n" +
+                "    \"width\": \"${imageInfo.width}\"\n" +
+                "}";
+        Map<String, String> params = new HashMap<>();
+        params.put("callbackUrl", "http://up.igosh.com/oss/callback");
+        params.put("callbackHost", "up.igosh.com");
+        params.put("callbackBody", body);
+        params.put("callbackBodyType", "application/json");
+
+        return Base64.getEncoder().encodeToString(JSON.toJSONBytes(params));
+    }
+
+
+    @RequestMapping("/oss/callback")
+    @ResponseBody
+    public Object callback(@RequestBody String result) {
+        LOGGER.info(result);
+        return "{\"Status\":\"OK\"}";
     }
 
 }
