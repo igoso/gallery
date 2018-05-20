@@ -6,7 +6,10 @@ import com.aliyun.oss.common.utils.BinaryUtil;
 import com.aliyun.oss.model.MatchMode;
 import com.aliyun.oss.model.PolicyConditions;
 import com.igoso.me.gallery.entity.FileUpload;
+import com.igoso.me.gallery.entity.OssFile;
 import com.igoso.me.gallery.service.FileUploadService;
+import com.igoso.me.gallery.service.OssFileService;
+import com.igoso.me.gallery.util.ResponseUtil;
 import com.igoso.me.gallery.util.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -165,12 +168,34 @@ public class FileController {
         return Base64.getEncoder().encodeToString(JSON.toJSONBytes(params));
     }
 
+    @Resource
+    private OssFileService ossFileService;
+
 
     @RequestMapping("/oss/callback")
     @ResponseBody
     public Object callback(@RequestBody String result) {
         LOGGER.info(result);
-        return "{\"Status\":\"OK\"}";
+        try {
+            OssFile ossFile = JSON.parseObject(result, OssFile.class);
+            boolean res = ossFileService.save(ossFile);
+            return res?ResponseUtil.build().success(result):ResponseUtil.build().failure();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            return ResponseUtil.build().failure(result);
+        }
+
+    }
+
+    @RequestMapping("/oss/list")
+    @ResponseBody
+    public Object ossList() {
+       return ossFileService.queryList();
+    }
+
+    @RequestMapping("/oss/files")
+    public String ossFiles() {
+        return "ossfiles";
     }
 
 }
