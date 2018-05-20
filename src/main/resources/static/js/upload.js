@@ -135,9 +135,14 @@ var uploader = new plupload.Uploader({
     url: 'http://oss.aliyuncs.com',
 
     filters: {
-        mime_types: [ //只允许上传图片和zip文件
+        mime_types: [
             {title: "Image files", extensions: "jpg,gif,png,bmp,jpeg"},
-            {title: "Zip files", extensions: "zip,rar,jar,tar.gz"}
+            {title: "Zip files", extensions: "zip,rar,jar,tar.gz"},
+            {title: "Doc",extensions:"pdf,doc,docx,xls,xlsx,csv,ppt,pptx"},
+            {title: "Windows",extensions:"exe"},
+            {title: "Media",extensions:"mp4,mp3,avi,rmvb,flac,mpg,wma"},
+            {title: "Code",extensions:"txt,js,java,cpp,php"}
+
         ],
         max_file_size: '200mb', //最大只能上传200mb的文件
         prevent_duplicates: true //不允许选取重复文件
