@@ -52,7 +52,7 @@ public class OssFileService {
 
             String filename = ISS_URL + ossFile.getFilename();
             //文件已上传过，不再额外保存记录
-            if (selectOne(ossFile.getFilename()) != null) {
+            if (selectOne(filename) != null) {
                 LOGGER.warn("file has been uploaded:{}",filename);
                 return false;
             }
