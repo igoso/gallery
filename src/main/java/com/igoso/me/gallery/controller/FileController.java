@@ -174,15 +174,16 @@ public class FileController {
 
     @RequestMapping("/oss/callback")
     @ResponseBody
-    public Object callback(@RequestBody String result) {
+    public Object callback(HttpServletRequest request,@RequestBody String result) {
         LOGGER.info(result);
         try {
+            ossFileService.verifyOssCallbackRequest(request,result);
             OssFile ossFile = JSON.parseObject(result, OssFile.class);
             boolean res = ossFileService.save(ossFile);
             return res?ResponseUtil.build().success(result):ResponseUtil.build().failure();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
-            return ResponseUtil.build().failure(result);
+            return ResponseUtil.build().failure(e.getMessage());
         }
 
     }
