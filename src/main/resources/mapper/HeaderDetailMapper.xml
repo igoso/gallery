@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.igoso.me.gallery.dao.HeaderDetailDao">
+
+    <resultMap type="com.igoso.me.gallery.entity.HeaderDetail" id="BaseResultMap">
+        <id property="id" column="id"/>
+        <result property="acceptLanguage" column="accept_language"/>
+        <result property="method" column="method"/>
+        <result property="remoteHost" column="remote_host"/>
+        <result property="remotePort" column="remote_port"/>
+        <result property="remoteAddr" column="remote_addr"/>
+        <result property="queryString" column="query_string"/>
+        <result property="uri" column="uri"/>
+        <result property="accept" column="accept"/>
+        <result property="localHost" column="local_host"/>
+        <result property="acceptEncoding" column="accept_encoding"/>
+        <result property="userAgent" column="user_agent"/>
+        <result property="protocol" column="protocol"/>
+        <result property="extensions" column="extensions"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        SELECT *
+        FROM http_log
+        WHERE status = 0
+        ORDER BY create_time DESC
+    </select>
+
+    <insert id="insert" parameterType="com.igoso.me.gallery.entity.HeaderDetail">
+        INSERT INTO
+        http_log
+        (
+        id,
+        accept_language,
+        method,
+        remote_host,
+        remote_port,
+        remote_addr,query_string,
+        uri,
+        accept,
+        local_host,
+        accept_encoding,
+        user_agent,
+        protocol,
+        extensions,
+        status,
+        create_time,
+        update_time
+        )
+        VALUES
+        (
+        null,#{acceptLanguage},#{method},#{remoteHost},#{remotePort},#{remoteAddr},
+        #{queryString},#{uri},#{accept},#{localHost},#{acceptEncoding},#{userAgent},
+        #{protocol},#{extensions},0,now(),now()
+        )
+    </insert>
+</mapper>
