@@ -35,6 +35,58 @@ CREATE TABLE `ga_files` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+CREATE TABLE `house_ts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `address` varchar(255) DEFAULT NULL,
+  `brands` varchar(255) DEFAULT NULL,
+  `size` varchar(255) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `pic` varchar(255) DEFAULT NULL,
+  `usage` varchar(255) DEFAULT NULL,
+  `region` varchar(255) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `oss_files` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `filename` varchar(255) DEFAULT NULL COMMENT '文件名称地址',
+  `size` varchar(255) DEFAULT NULL COMMENT '大小',
+  `mime_type` varchar(128) DEFAULT NULL COMMENT 'mime类型',
+  `image_width` varchar(128) DEFAULT NULL COMMENT '图片宽度',
+  `image_height` varchar(128) DEFAULT NULL COMMENT '图片高度',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_by` varchar(255) DEFAULT NULL COMMENT '创建人',
+  `status` tinyint(3) DEFAULT '0' COMMENT '状态 0 正常 -1 删除',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `filename` (`filename`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `http_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `method` varchar(16) DEFAULT NULL COMMENT 'HTTP方法',
+  `accept_language` varchar(128) DEFAULT NULL COMMENT '语言设置',
+  `remote_host` varchar(128) NOT NULL COMMENT '远端地址',
+  `remote_port` varchar(16) DEFAULT NULL COMMENT '远端端口',
+  `remote_addr` varchar(128) NOT NULL COMMENT '远端addr',
+  `query_string` varchar(1024) DEFAULT NULL COMMENT '查询子串',
+  `uri` varchar(1024) DEFAULT NULL COMMENT '请求URI',
+  `accept` varchar(128) DEFAULT NULL COMMENT '请求accept头',
+  `local_host` varchar(128) DEFAULT NULL COMMENT '本地HOST端口',
+  `accept_encoding` varchar(64) DEFAULT NULL COMMENT '数据encoding',
+  `user_agent` varchar(1024) NOT NULL COMMENT '请求Agent',
+  `protocol` varchar(16) DEFAULT NULL COMMENT 'HTTP协议版本',
+  `extensions` varchar(1024) DEFAULT NULL COMMENT '拓展头',
+  `status` tinyint(3) DEFAULT NULL COMMENT '状态 0 正常 -1 删除',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_r_host` (`remote_host`),
+  KEY `idx_r_addr` (`remote_addr`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 --
 -- Dumping data for table `ga_files`
 --
