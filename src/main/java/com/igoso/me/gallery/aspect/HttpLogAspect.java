@@ -27,6 +27,8 @@ import java.util.Map;
 public class HttpLogAspect {
     private static final Logger LOGGER = LoggerFactory.getLogger("HTTP_LOG");
 
+    private static final String LOG_HTTP_URI_PREFIX = "/log/http";
+
     @Resource
     private HeaderDetailDao headerDetailDao;
 
@@ -43,6 +45,12 @@ public class HttpLogAspect {
             return;
         }
         HttpServletRequest request = attributes.getRequest();
+
+        //exclude itself
+        if (request.getRequestURI().contains(LOG_HTTP_URI_PREFIX)) {
+            LOGGER.info("request http log self");
+            return;
+        }
 
         Map<String,String> headers = new HashMap<>();
         String name;
