@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.igoso.me.gallery.dao.IpInfoDao">
+
+    <resultMap type="com.igoso.me.gallery.entity.IpInfo" id="BaseResultMap">
+        <id property="id" column="id"/>
+        <result property="ip" column="ip"/>
+        <result property="country" column="country"/>
+        <result property="region" column="region"/>
+        <result property="area" column="area"/>
+        <result property="city" column="city"/>
+        <result property="county" column="county"/>
+        <result property="isp" column="isp"/>
+        <result property="source" column="source"/>
+        <result property="createTime" column="create_time"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <select id="selectOne" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT *
+        FROM ip_info
+        WHERE ip = #{ip}
+        AND status = 0
+    </select>
+
+    <insert id="insert" parameterType="com.igoso.me.gallery.entity.IpInfo">
+        INSERT INTO
+        ip_info
+        (ip,country,region,area,city,county,isp,source,create_time,status)
+        VALUES
+        (#{ip},#{country},#{region},#{area},#{city},#{county},#{isp},#{source},now(),0)
+    </insert>
+
+
+    <select id="selectList" resultMap="BaseResultMap">
+        SELECT * FROM
+        ip_info
+        WHERE
+        status = 0
+    </select>
+</mapper>

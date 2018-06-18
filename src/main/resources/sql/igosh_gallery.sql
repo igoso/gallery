@@ -87,6 +87,21 @@ CREATE TABLE `http_log` (
   KEY `idx_r_addr` (`remote_addr`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `ip_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '序号',
+  `ip` varchar(128) NOT NULL COMMENT 'IP',
+  `country` varchar(255) DEFAULT NULL COMMENT '国家',
+  `area` varchar(255) DEFAULT NULL COMMENT '地区',
+  `region` varchar(255) DEFAULT NULL COMMENT '行政区',
+  `city` varchar(255) DEFAULT NULL COMMENT '城市',
+  `county` varchar(255) DEFAULT NULL COMMENT '县域',
+  `isp` varchar(255) DEFAULT NULL COMMENT '运营商',
+  `source` varchar(128) DEFAULT NULL COMMENT 'API来源',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `status` tinyint(3) DEFAULT '0' COMMENT '状态 0 正常 -1 删除',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ip_UNIQUE` (`ip`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 --
 -- Dumping data for table `ga_files`
 --
