@@ -2,6 +2,7 @@ package com.igoso.me.gallery.controller;
 
 import com.igoso.me.gallery.entity.IpInfo;
 import com.igoso.me.gallery.service.IpInfoService;
+import com.igoso.me.gallery.task.IpDetailTask;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -63,5 +64,20 @@ public class DashController {
         }
 
         return "fail";
+    }
+     
+    @Resource
+    private IpDetailTask  ipDetailTask;
+    
+    @RequestMapping("/ipinfo/detail/fresh/run")
+    @ResponseBody
+    public String freshRunDirect(){
+        try{
+           ipDetailTask.freshIpDetails();
+           return "OK";
+        }catch(Exception e){
+	  return e.getMessage();
+        }
+
     }
 }
