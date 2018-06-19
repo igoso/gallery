@@ -65,19 +65,26 @@ public class DashController {
 
         return "fail";
     }
-     
+
     @Resource
-    private IpDetailTask  ipDetailTask;
-    
+    private IpDetailTask ipDetailTask;
+
     @RequestMapping("/ipinfo/detail/fresh/run")
     @ResponseBody
-    public String freshRunDirect(){
-        try{
-           ipDetailTask.freshIpDetails();
-           return "OK";
-        }catch(Exception e){
-	  return e.getMessage();
+    public String freshRunDirect() {
+        try {
+            ipDetailTask.freshIpDetails();
+            return "OK";
+        } catch (Exception e) {
+            return e.getMessage();
         }
-
     }
+
+
+    @RequestMapping("/ipinfo/detail/top10")
+    @ResponseBody
+    public Object detailTop10() {
+        return ipInfoService.statisticsTop10();
+    }
+
 }

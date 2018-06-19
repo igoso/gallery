@@ -40,4 +40,17 @@
         WHERE
         status = 0
     </select>
+
+    <resultMap id="Statistic" type="com.igoso.me.gallery.entity.vo.IpStatistic">
+        <result property="num" column="num"/>
+        <result property="ip" column="ip"/>
+    </resultMap>
+
+    <select id="statisticsTop10" resultMap="Statistic">
+        SELECT COUNT(*) num ,country
+        FROM ip_info
+        GROUP BY country
+        ORDER BY num DESC
+        limit 10
+    </select>
 </mapper>

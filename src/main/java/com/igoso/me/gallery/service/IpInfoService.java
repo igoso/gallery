@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.igoso.me.gallery.dao.IpInfoDao;
 import com.igoso.me.gallery.entity.IpInfo;
 import com.igoso.me.gallery.entity.api.TaobaoIp;
+import com.igoso.me.gallery.entity.vo.IpStatistic;
 import com.igoso.me.gallery.util.HttpUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,6 +60,16 @@ public class IpInfoService {
             LOGGER.error("get list for ip details error:{}",e.getMessage());
         }
 
+        return null;
+    }
+
+    public List<IpStatistic> statisticsTop10() {
+        //get top10 ip
+        try {
+            return ipInfoDao.statisticsTop10();
+        } catch (Exception e) {
+            LOGGER.error("get top10 ip error:{}",e.getMessage());
+        }
         return null;
     }
 
