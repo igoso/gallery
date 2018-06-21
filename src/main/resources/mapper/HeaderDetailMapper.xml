@@ -31,6 +31,15 @@
         ORDER BY create_time DESC
     </select>
 
+    <select id="selectListBeforeDays" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT *
+        FROM http_log
+        WHERE create_time &gt;= date_sub(now(), INTERVAL #{days} DAY )
+        AND create_time &lt;= now()
+        AND status = 0
+        ORDER BY create_time DESC
+    </select>
+
     <insert id="insert" parameterType="com.igoso.me.gallery.entity.HeaderDetail">
         INSERT INTO
         http_log

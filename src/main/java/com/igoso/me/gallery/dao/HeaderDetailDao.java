@@ -17,4 +17,6 @@ public interface HeaderDetailDao {
 
     List<HeaderDetail> selectList();
 
+    List<HeaderDetail> selectListBeforeDays(int days);
+
 }

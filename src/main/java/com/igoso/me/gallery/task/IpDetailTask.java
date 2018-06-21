@@ -34,7 +34,7 @@ public class IpDetailTask {
     @Scheduled(cron = "0 0 1 * * ? ")
     public void freshIpDetails() {
         LOGGER.info("scheduled ip detail fill start");
-        List<HeaderDetail> headerDetails = headerDetailDao.selectList();
+        List<HeaderDetail> headerDetails = headerDetailDao.selectListBeforeDays(1);
         Set<String> ips = new HashSet<>();
         initIpList(headerDetails, ips);
 
