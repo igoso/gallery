@@ -1,6 +1,7 @@
 package com.igoso.me.gallery.controller;
 
 import com.igoso.me.gallery.entity.IpInfo;
+import com.igoso.me.gallery.entity.vo.IpStatistic;
 import com.igoso.me.gallery.service.IpInfoService;
 import com.igoso.me.gallery.task.IpDetailTask;
 import org.springframework.stereotype.Controller;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * created by igoso at 2018/6/18
@@ -84,7 +87,17 @@ public class DashController {
     @RequestMapping("/ipinfo/detail/top10")
     @ResponseBody
     public Object detailTop10() {
-        return ipInfoService.statisticsTop10();
+        List<IpStatistic> countryIps = ipInfoService.statisticsTop10();
+        if (CollectionUtils.isEmpty(countryIps)) {
+            return "{}";
+        } else {
+            Map<String, Integer> data = new LinkedHashMap<>();
+            for (IpStatistic e : countryIps) {
+                data.put(e.getCountry(), e.getNum());
+            }
+
+            return data;
+        }
     }
 
 }
