@@ -25,7 +25,7 @@
     </resultMap>
 
     <select id="selectList" resultMap="BaseResultMap">
-        SELECT *
+        SELECT method,remote_host,remote_port,user_agent,protocol,remote_addr,uri,query_string,local_host,accept,accept_language,accept_encoding,create_time
         FROM http_log
         WHERE status = 0
         ORDER BY create_time DESC
