@@ -139,9 +139,9 @@ var uploader = new plupload.Uploader({
             {title: "Image files", extensions: "jpg,gif,png,bmp,jpeg"},
             {title: "Zip files", extensions: "zip,rar,jar,tar.gz"},
             {title: "Doc",extensions:"pdf,doc,docx,xls,xlsx,csv,ppt,pptx"},
-            {title: "Windows",extensions:"exe"},
+            {title: "Windows",extensions:"exe,msi"},
             {title: "Media",extensions:"mp4,mp3,avi,rmvb,flac,mpg,wma"},
-            {title: "Code",extensions:"txt,js,java,cpp,php,json"}
+            {title: "Code",extensions:"txt,js,java,cpp,php,json,sql,xml"}
 
         ],
         max_file_size: '200mb', //最大只能上传200mb的文件
