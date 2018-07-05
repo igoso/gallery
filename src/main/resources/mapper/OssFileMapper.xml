@@ -19,7 +19,7 @@
     <select id="selectList" parameterType="com.igoso.me.gallery.entity.OssFile" resultMap="BaseResultMap">
         SELECT *
         FROM oss_files
-        ORDER BY id
+        ORDER BY create_time DESC
     </select>
 
     <select id="selectOne" resultMap="BaseResultMap" parameterType="java.lang.String">
