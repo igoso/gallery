@@ -21,7 +21,8 @@ import java.util.List;
 @Service
 public class IpInfoService {
     private static final Logger LOGGER = LoggerFactory.getLogger(IpInfoService.class);
-
+    private static final String TAOBAO_IP_API_URL = "http://ip.taobao.com/service/getIpInfo.php?ip=%s";
+    
     @Resource
     private IpInfoDao ipInfoDao;
 
@@ -79,9 +80,7 @@ public class IpInfoService {
             return null;
         }
 
-        String taobaoUrl = "http://ip.taobao.com/service/getIpInfo.php?ip=%s";
-
-        String result = HttpUtils.doGet(String.format(taobaoUrl, ip));
+        String result = HttpUtils.doGet(String.format(TAOBAO_IP_API_URL, ip));
         LOGGER.info("get from taobao, result:{}", result);
 
         TaobaoIp taobaoIp = JSON.parseObject(result, TaobaoIp.class);
