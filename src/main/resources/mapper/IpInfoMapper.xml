@@ -30,7 +30,7 @@
         ip_info
         (ip,country,region,area,city,county,isp,source,create_time,status)
         VALUES
-        (#{ip},#{country},#{region},#{area},#{city},#{county},#{isp},#{source},now(),0)
+        (#{ip},#{country},#{region},#{area},#{city},#{county},#{isp},#{source},now(),0) on DUPLICATE key update count = count + 1
     </insert>
 
 
