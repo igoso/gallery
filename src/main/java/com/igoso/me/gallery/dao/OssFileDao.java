@@ -16,4 +16,6 @@ public interface OssFileDao {
     List<OssFile> selectList();
 
     OssFile selectOne(String filename);
+
+    Long countTotalSize();
 }

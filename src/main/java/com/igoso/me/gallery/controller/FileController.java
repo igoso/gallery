@@ -194,6 +194,12 @@ public class FileController {
        return ossFileService.queryList();
     }
 
+    @RequestMapping("/oss/files/size")
+    @ResponseBody
+    public Long totalSize() {
+        return ossFileService.countTotalSize();
+    }
+
     @RequestMapping("/oss/files")
     public String ossFiles() {
         return "ossfiles";

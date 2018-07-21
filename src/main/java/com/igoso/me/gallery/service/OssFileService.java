@@ -157,4 +157,14 @@ public class OssFileService {
         }
     }
 
+    public Long countTotalSize() {
+        try {
+            return ossFileDao.countTotalSize();
+        } catch (Exception e) {
+            LOGGER.error("count oss total size error",e);
+        }
+
+        return null;
+    }
+
 }

@@ -36,4 +36,10 @@
         VALUES
         (null,#{filename},#{size},#{mimeType},#{height},#{width},now(),#{createBy})
     </insert>
+
+    <select id="countTotalSize" resultType="java.lang.Long">
+        SELECT sum(size)
+        FROM oss_files
+        WHERE status = 0
+    </select>
 </mapper>
