@@ -102,6 +102,24 @@ CREATE TABLE `ip_info` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `ip_UNIQUE` (`ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `auth_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `username` varchar(128) DEFAULT NULL COMMENT '用户名，必须英文且唯一',
+  `phone` varchar(45) DEFAULT NULL COMMENT '电话，唯一且为数字',
+  `region` varchar(128) DEFAULT NULL COMMENT '地区，用户填选',
+  `gender` tinyint(3) DEFAULT NULL COMMENT '性别，0 -female 1 - male 2 -other',
+  `user_agent` varchar(512) DEFAULT NULL COMMENT '注册的UseAgent',
+  `register_ip` varchar(128) DEFAULT NULL COMMENT '注册的IP',
+  `last_logintime` datetime DEFAULT NULL COMMENT '最后登录时间',
+  `login_count` int(11) DEFAULT '0' COMMENT '登录计数',
+  `status` int(11) DEFAULT '0' COMMENT '状态 0-正常 -1 已删除 ',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间，注册时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username_UNIQUE` (`username`),
+  UNIQUE KEY `phone_UNIQUE` (`phone`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
 --
 -- Dumping data for table `ga_files`
 --
