@@ -1,2 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>登录</title>
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+<div class="r-header">
+    <a hotrep="register.header.homelink" href="/" class="r-logo zh">
+        Sefoy
+    </a>
+</div>
+<div class="r-wrap J-mailArea" style="">
+    <div class="r-topbar">
+        <div class="r-topbar-con">
+            <div class="r-area-tit"><h2>邮箱注册</h2></div>
+        </div>
+    </div>
+    <div class="r-content">
+        <div class="regist-form-wrap">
+            <div class="regist-form">
+                <ul class="form-list">
+                    <li>
+                        <div class="form-input">
+                            <div class="form-unit tip-unit">
+                                <label class="input-tips J-placeholder" style="display: none;">邮箱地址</label>
+                                <input type="text" class="qc-log-input-text lg" placeholder="邮箱地址" data-id="mailInput">
+                                <ul class="tip-list" style="display: none" data-id="mailSuggest"></ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-input">
+                            <div class="form-unit">
+                                <label class="input-tips J-placeholder" style="display: none;">密码</label>
+                                <input type="password" class="qc-log-input-text lg" placeholder="密码"
+                                       data-id="passwordInput">
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-input">
+                            <div class="form-unit">
+                                <label class="input-tips J-placeholder" style="display: none;">确认密码</label>
+                                <input type="password" class="qc-log-input-text lg" placeholder="确认密码"
+                                       data-id="confirmPasswordInput">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="regist-form-tit">
+                    <span>手机信息</span>
+                </div>
+                <ul class="form-list">
+                    <li>
+                        <div class="form-input">
+                            <div class="fm-dropdown" data-id="countryCode">
+                                <div class="mobile-code-dropdown J-dropdown">
+                                    <a class="dropdown-link">
+                                        <span class="flag china J-selectedFlag"></span>
+                                        <span class="mobile-code J-selectedCountryCode">+86</span>
+                                        <span class="arr"></span>
+                                    </a>
+                                </div>
+                                <label class="input-tips J-placeholder" style="display: none;">手机号码</label>
+                                <input type="text" class="input-mobile qc-log-input-text" placeholder="手机号码"
+                                       data-id="phoneInput">
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-input fm-verify">
+                            <div class="form-unit">
+                                <label class="input-tips J-placeholder" style="display: none;">验证码</label>
+                                <input type="text" class="qc-log-input-text" placeholder="验证码" data-id="smsCodeInput">
+                                <button type="button" class="qc-log-btn xl c-btn-hole" data-id="smsCodeBtn"
+                                        hotrep="regist.fmverify.btn">获取验证码
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
 
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>极验后台登录</title><script src="https://static.geetest.com/static/tools/gt.js"></script><link href="https://front.geetest.com/logo/logo.ico" rel="shortcut icon"><style>#testIE{width:100%;display:none;height:40px;line-height:40px;color:#fff;text-align:center;background:#082155;opacity:.8;font-size:14px}</style><link rel="shortcut icon" href="/static/favicon.ico"></head><body><div id="testIE">浏览器版本较低可能会影响页面展示效果，建议使用Chrome或者更高版本的浏览器</div><div id="app"></div><script>function IEVersion(){var e=document.getElementById("testIE"),n=navigator.userAgent,i=-1<n.indexOf("compatible")&&-1<n.indexOf("MSIE"),t=-1<n.indexOf("Trident")&&-1<n.indexOf("rv:11.0");return i||t?(e.style.display="inline-block",1):(e.style.display="none",-1)}IEVersion()</script><script type="text/javascript" src="/static/js/manifest.320b818c8ee6302d4331.js"></script><script type="text/javascript" src="/static/js/vendor.f12a7a47fad3b488b0de.js"></script><script type="text/javascript" src="/static/js/app.1e75000ef8f2bccd831b.js"></script></body></html>
+            <div class="form-ctrl-label-wrap">
+                <label class="form-ctrl-label">
+                    <input type="checkbox" class="qc-log-checkbox J-agreement">
+                    <span>我已阅读并同意 <a class="link" target="_blank" href="/document/product/301/1967"
+                                     hotrep="register.terms.service.zh">服务协议</a> 和 <a class="link" target="_blank"
+                                                                                         href="/document/product/301/11470"
+                                                                                         hotrep="register.privacy.policy.zh">隐私声明</a></span>
+                </label>
+            </div>
+
+
+            <div class="op-btn">
+                <button type="button" class="qc-log-btn lg J-mailSubmitBtn" hotrep="regist.op.regist.btn">同意协议并提交
+                </button>
+                <button type="button" class="qc-log-btn lg J-mailSubmitLoadingBtn" style="display:none">
+                    <div class="m-loading">
+                        <div class="loading">
+                            <div class="one"></div>
+                            <div class="two"></div>
+                            <div class="three"></div>
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="lg-footer">
+        <div class="copyright">
+            <p class="tag-line">
+                Copyright © 2013
+                <script>new Date().getFullYear() > 2013 && document.write("-" + new Date().getFullYear());</script>
+                -2018 Igosh.com & Sefoy. All Rights Reserved.
+            </p>
+        </div>
+    </div>
+</div>
+<div id="app"></div>
+</body>
+</html>
