@@ -142,7 +142,7 @@ var uploader = new plupload.Uploader({
             {title: "Windows",extensions:"exe,msi"},
             {title: "Media",extensions:"mp4,mp3,avi,rmvb,flac,mpg,wma"},
             {title: "Code",extensions:"txt,js,java,cpp,php,json,sql,xml"},
-            {title: "Mirrors":extensions:"iso"}
+            {title: "Mirrors",extensions:"iso"}
 
         ],
         max_file_size: '2000mb', //最大只能上传2000mb的文件
