@@ -141,10 +141,11 @@ var uploader = new plupload.Uploader({
             {title: "Doc",extensions:"pdf,doc,docx,xls,xlsx,csv,ppt,pptx"},
             {title: "Windows",extensions:"exe,msi"},
             {title: "Media",extensions:"mp4,mp3,avi,rmvb,flac,mpg,wma"},
-            {title: "Code",extensions:"txt,js,java,cpp,php,json,sql,xml"}
+            {title: "Code",extensions:"txt,js,java,cpp,php,json,sql,xml"},
+            {title: "Mirrors":extensions:"iso"}
 
         ],
-        max_file_size: '200mb', //最大只能上传200mb的文件
+        max_file_size: '2000mb', //最大只能上传2000mb的文件
         prevent_duplicates: true //不允许选取重复文件
     },
 
