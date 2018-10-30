@@ -27,6 +27,12 @@ public class DashController {
     @Resource
     private IpInfoService ipInfoService;
 
+
+    @RequestMapping("/stat")
+    public String stat() {
+        return "statistics";
+    }
+
     @RequestMapping("/ipinfo/detail/db/{ip}")
     @ResponseBody
     public Object checkIpDetail(@PathVariable(name = "ip") String ip) {

@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>igosh.com</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- bootstrap-table css -->
+    <link href="https://cdn.bootcss.com/bootstrap-table/1.12.1/bootstrap-table.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">统计</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#">首页</a></li>
+                <li><a href="#about">关于</a></li>
+                <li><a href="#contact">联系</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div class="container">
+    <h3>统计地址</h3>
+    <ul>
+        <li>
+            <a href="/dash/ipinfo/detail/db/{ip}">IP detail</a>
+        </li>
+        <li>
+            <a href="/dash/ipinfo/detail/fresh/run">ip detail refresh run</a>
+        </li>
+        <li>
+            <a href="/dash/ipinfo/detail/top10">ip top 10</a>
+        </li>
+        <li>
+            <a href="/dash/ipinfo/detail/save/{ip}">ip from taobao and save db</a>
+        </li>
+            <hr/>
+        <li>
+            <a href="/oss/files/size">all oss file size in db</a>
+        </li>
+    </ul>
+</div><!-- /.container -->
+
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">Copyright by igosh.com @2015-2020</p>
+    </div>
+</footer>
+</body>
+</html>
