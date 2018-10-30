@@ -141,7 +141,7 @@ var uploader = new plupload.Uploader({
             {title: "Doc",extensions:"pdf,doc,docx,xls,xlsx,csv,ppt,pptx"},
             {title: "Windows",extensions:"exe,msi"},
             {title: "Media",extensions:"mp4,mp3,avi,rmvb,flac,mpg,wma"},
-            {title: "Code",extensions:"txt,js,java,cpp,php,json,sql,xml"},
+            {title: "Code",extensions:"txt,js,java,cpp,php,json,sql,xml,bat,sh"},
             {title: "Mirrors",extensions:"iso"}
 
         ],
