@@ -42,4 +42,11 @@
         FROM oss_files
         WHERE status = 0
     </select>
+
+    <delete id="delete" parameterType="java.lang.String">
+        DELETE FROM
+        oss_files
+         WHERE filename = #{filename}
+        AND status = 0
+    </delete>
 </mapper>

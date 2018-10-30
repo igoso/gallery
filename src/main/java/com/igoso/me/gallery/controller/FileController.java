@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -102,6 +103,9 @@ public class FileController {
     private String rootDir;
 
 
+    @Value("${file.danger.op.code}")
+    private String secretCode;
+
     @RequestMapping(value = "/send_request",method = RequestMethod.GET)
     public void sendRequest(HttpServletRequest request, HttpServletResponse response){
         String host = "http://" + bucket + "." + endpoint;
@@ -138,6 +142,7 @@ public class FileController {
         } catch (Exception e) {
             LOGGER.error("error occurred:{}",e.getMessage());
         }
+        client.shutdown();
     }
 
     private void response(HttpServletRequest request, HttpServletResponse response, String results) throws IOException {
@@ -192,6 +197,28 @@ public class FileController {
     @ResponseBody
     public Object ossList() {
        return ossFileService.queryList();
+    }
+
+    @RequestMapping("/oss/delete")
+    @ResponseBody
+    public Object ossDelete(@RequestBody Map<String, String> request) {
+        if (request == null
+                || StringUtils.isEmpty(request.get("code"))
+                || StringUtils.isEmpty(request.get("filename"))) {
+            return ResponseUtil.build().failure("参数错误");
+        }
+
+        String code = request.get("code");
+        String filename = request.get("filename");
+
+        if (!code.equals(secretCode)) {
+            return ResponseUtil.build().failure("invalid code");
+        }
+
+        if (ossFileService.delete(filename)) {
+            return ResponseUtil.build().success();
+        }
+        return ResponseUtil.build().failure("fail delete :" + filename);
     }
 
     @RequestMapping("/oss/files/size")

@@ -1,5 +1,8 @@
 package com.igoso.me.gallery.service;
 
+import com.aliyun.oss.ClientException;
+import com.aliyun.oss.OSSClient;
+import com.aliyun.oss.OSSException;
 import com.aliyun.oss.common.utils.BinaryUtil;
 import com.igoso.me.gallery.dao.OssFileDao;
 import com.igoso.me.gallery.entity.OssFile;
@@ -9,6 +12,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -31,6 +35,21 @@ public class OssFileService {
     private static final Logger LOGGER = LoggerFactory.getLogger(OssFileService.class);
     private static final String ISS_URL = "http://iss.igosh.com/";
 
+    //aliyun oss demo
+    @Value("${aliyun.oss.endpoint}")
+    private String endpoint;
+
+    @Value("${aliyun.oss.accessId}")
+    private String accessId;
+
+    @Value("${aliyun.oss.accessKey}")
+    private String accessKey;
+
+    @Value("${aliyun.oss.bucket}")
+    private String bucket;
+
+    @Value("${aliyun.oss.dir.root}")
+    private String rootDir;
 
     @Resource
     private OssFileDao ossFileDao;
@@ -54,6 +73,28 @@ public class OssFileService {
         }
 
         return null;
+    }
+
+    public boolean delete(String filename) {
+        OSSClient client = null;
+        try {
+            ossFileDao.delete(filename);
+            client = new OSSClient(endpoint, accessId, accessKey);
+            String key = filename.replace(ISS_URL, "");
+            client.deleteObject(bucket,key);
+            return true;
+        } catch (Exception e) {
+            if (e instanceof ClientException || e instanceof OSSException) {
+                LOGGER.error("delete from oss error ",e);
+            }else {
+                LOGGER.error("delete from db error ", e);
+            }
+        }finally {
+            if (client != null) {
+                client.shutdown();
+            }
+        }
+        return false;
     }
 
     //verify oss callback request

@@ -47,6 +47,9 @@
 
 <div class="container">
 
+    <div id="btn-file-delete">
+        <button id="button" class="btn btn-danger">删除</button>
+    </div>
     <table id="file-list">
         <!--file list-->
     </table>
@@ -71,7 +74,8 @@
 </html>
 
 <script>
-    $("#file-list").bootstrapTable({
+    var  table = $("#file-list");
+    table.bootstrapTable({
         url:"/oss/list",
         columns:[
             {field:"state",checkbox:true},
@@ -97,4 +101,46 @@
             return '无符合条件的记录';
         }
     });
+
+
+    $("#btn-file-delete").click(function () {
+        var selected = table.bootstrapTable("getAllSelections");
+        if(selected.length === 0) {
+            alert("没有选择文件");
+            return;
+        }
+        if(selected.length > 1) {
+            alert("只能删除一个");
+            return;
+        }
+        var secretCode = prompt("请输入密码!");
+        if(secretCode === "") {
+            alert("不能为空");
+            return;
+        }
+        doDeleteFile(selected[0].filename,secretCode);
+    });
+    
+    
+    function doDeleteFile(filename,secretCode) {
+        $.ajax({
+            type:'post',
+            url:"/oss/delete",
+            data:JSON.stringify({
+                "filename":filename,
+                "code":secretCode
+            }),
+            async:false,
+            dataType: 'json',
+            contentType: 'application/json;charset=UTF-8',
+            success:function (resp) {
+                if(resp.code !== 0 ) {
+                    alert(resp.message);
+                }else {
+                    alert("success !");
+                    table.bootstrapTable("refresh");
+                }
+            }
+        })
+    }
 </script>

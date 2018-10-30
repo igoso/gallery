@@ -18,4 +18,6 @@ public interface OssFileDao {
     OssFile selectOne(String filename);
 
     Long countTotalSize();
+
+    int delete(String filename);
 }
