@@ -132,7 +132,7 @@ var uploader = new plupload.Uploader({
     container: document.getElementById('container'),
     flash_swf_url: '/js/plupload-2.1.2/Moxie.swf',
     silverlight_xap_url: '/js/plupload-2.1.2/Moxie.xap',
-    url: 'http://oss.aliyuncs.com',
+    url: 'https://oss.aliyuncs.com',
 
     filters: {
         mime_types: [

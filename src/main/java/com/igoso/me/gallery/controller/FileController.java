@@ -28,6 +28,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.util.*;
 
 /**
@@ -108,7 +110,7 @@ public class FileController {
 
     @RequestMapping(value = "/send_request",method = RequestMethod.GET)
     public void sendRequest(HttpServletRequest request, HttpServletResponse response){
-        String host = "http://" + bucket + "." + endpoint;
+        String host = "https://" + bucket + "." + endpoint;
         OSSClient client = new OSSClient(endpoint, accessId, accessKey);
         try {
             long expireTime = 30;
@@ -165,8 +167,8 @@ public class FileController {
                 "    \"width\": \"${imageInfo.width}\"\n" +
                 "}";
         Map<String, String> params = new HashMap<>();
-        params.put("callbackUrl", "http://up.igosh.com/oss/callback");
-        params.put("callbackHost", "up.igosh.com");
+        params.put("callbackUrl", "https://www.igosh.com/oss/callback");
+        params.put("callbackHost", "www.igosh.com");
         params.put("callbackBody", body);
         params.put("callbackBodyType", "application/json");
 
@@ -211,7 +213,7 @@ public class FileController {
         String code = request.get("code");
         String filename = request.get("filename");
 
-        if (!code.equals(secretCode)) {
+        if (!checkCode(code)) {
             return ResponseUtil.build().failure("invalid code");
         }
 
@@ -230,6 +232,20 @@ public class FileController {
     @RequestMapping("/oss/files")
     public String ossFiles() {
         return "ossfiles";
+    }
+     
+     private boolean checkCode(String code) {
+        try {
+            String secretKey = "79877c8694c71fb7ae5594d01488de83";
+            byte[] bytes = MessageDigest.getInstance("MD5").digest((code+secretKey).getBytes("UTF-8"));
+            StringBuilder md5hex = new StringBuilder(new BigInteger(1, bytes).toString(16));
+            for (int i = 0; i < 32 - md5hex.length(); i++) {
+                md5hex.insert(0, "0");
+            }
+            return secretCode.equalsIgnoreCase(md5hex.toString());
+        } catch (Exception e) {
+         return false;
+        }
     }
 
 }
