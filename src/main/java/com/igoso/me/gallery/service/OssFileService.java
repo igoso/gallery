@@ -33,7 +33,7 @@ import java.util.List;
 public class OssFileService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OssFileService.class);
-    private static final String ISS_URL = "http://iss.igosh.com/";
+    private static final String ISS_URL = "https://iss.igosh.com/";
 
     //aliyun oss demo
     @Value("${aliyun.oss.endpoint}")
